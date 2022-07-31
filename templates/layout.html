@@ -14,7 +14,7 @@
         <section class="navigation">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                  <a class="navbar-brand" href="{{url_for('about')}}":>Richard Sullivan Andison</a>
+                  <a class="navbar-brand" href="{{url_for('index')}}":>Richard Sullivan Andison</a>
                   <button class="toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                   </button>
@@ -35,7 +35,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% for project in projects %}
-                          <li><a class="dropdown-item" href="{{url_for('index')}}#{{project.id}}">{{project.title}}</a></li>
+                          <li><a class="dropdown-item" href="{{url_for('projects_id', id=project.id)}}">{{project.title}}</a></li>
                         {% endfor %}
                         </ul>
                       </li>

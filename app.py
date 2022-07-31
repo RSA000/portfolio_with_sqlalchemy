@@ -32,8 +32,8 @@ def add_project():
 
 @app.route('/projects/<id>')
 def projects_id(id):
-    project = Projects.query.get_or_404(id)
-    return render_template('detail.html', project=project)
+    current_project = Projects.query.get_or_404(id)
+    return render_template('detail.html', project=current_project, projects=projects)
 
 
 @app.route('/projects/<id>/edit', methods=['GET', 'POST'])
@@ -47,7 +47,7 @@ def edit(id):
         project.url = request.form['github']
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('edit.html', project=project)
+    return render_template('edit.html', projects=projects, project=project)
 
 @app.route('/projects/<id>/delete')
 def delete(id):
