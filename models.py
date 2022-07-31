@@ -12,6 +12,10 @@ db = SQLAlchemy(app)
 class Projects(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column('Title', db.String())
+    date = db.Column('Date', db.String())
     description = db.Column('Description', db.String())
-    directions = db.Column('Directions', db.String())
-    what_i_learned = db.Column('What I learned', db.String())
+    skills = db.Column('skills practiced', db.String())
+    url = db.Column('url', db.String())
+    
+    def __repr__(self):
+        print(self.id, self.title, self.date, self.description, self.skills, self.url)
