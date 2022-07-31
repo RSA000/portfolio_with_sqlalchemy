@@ -2,8 +2,8 @@ from crypt import methods
 from flask import (render_template, session,
                  url_for, request, redirect)
 from models import db, Projects, app
+import os
 
-app.static_folder = 'static'
 projects = Projects.query.all()
 
 @app.route('/')
