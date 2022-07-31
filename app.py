@@ -4,15 +4,16 @@ from flask import (render_template, session,
 from models import db, Projects, app
 
 app.static_folder = 'static'
+projects = Projects.query.all()
+
 @app.route('/')
 def index():
-    projects = Projects.query.all()
     return render_template("index.html", projects=projects)
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', projects=projects)
 
 
 @app.route('/projects/add', methods=['GET', 'POST'])
@@ -26,7 +27,7 @@ def add_project():
         db.session.add(new_project)
         db.session.commit()
         return redirect(url_for('index'))
-    return render_template('projectform.html')
+    return render_template('projectform.html', projects=projects)
 
 
 @app.route('/projects/<id>')

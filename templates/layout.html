@@ -24,10 +24,10 @@
                         <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Home</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                        <a class="nav-link" href="{{url_for('index')}}#about">About</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#skills">Skills</a>
+                        <a class="nav-link" href="{{url_for('index')}}#skills">Skills</a>
                       </li>
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,12 +35,12 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% for project in projects %}
-                          <li><a class="dropdown-item" href=#{{project.id}}>{{project.title}}</a></li>
+                          <li><a class="dropdown-item" href="{{url_for('index')}}#{{project.id}}">{{project.title}}</a></li>
                         {% endfor %}
                         </ul>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
+                        <a class="nav-link" href="{{url_for('index')}}#contact">Contact</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href={{url_for("add_project")}}>Add Project</a>
@@ -54,8 +54,6 @@
         {% endblock %}
         <section class="footer">
           <div class="socials">
-              <!--Delete any you don't use-->
-              <!--Icons from FontAwesome.com/icons-->
               <a href="">
                   <i class="fab fa-twitter"></i>
               </a>
@@ -64,12 +62,6 @@
               </a>
               <a href="">
                   <i class="fab fa-linkedin"></i>
-              </a>
-              <a href="">
-                  <i class="fab fa-instagram"></i>
-              </a>
-              <a href="">
-                  <i class="fab fa-tiktok"></i>
               </a>
           </div>
         <div class="treehouse">
