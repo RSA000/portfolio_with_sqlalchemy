@@ -1,4 +1,5 @@
-from flask import (render_template,
+from crypt import methods
+from flask import (render_template, session,
                  url_for, request, redirect)
 from models import db, Projects, app
 
@@ -7,6 +8,11 @@ app.static_folder = 'static'
 def index():
     projects = Projects.query.all()
     return render_template("index.html", projects=projects)
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 
 @app.route('/projects/add', methods=['GET', 'POST'])
@@ -29,16 +35,27 @@ def projects_id(id):
     return render_template('detail.html', project=project)
 
 
-@app.route('/projects/<id>/edit')
-def edit():
-    return render_template('projectform.html')
+@app.route('/projects/<id>/edit', methods=['GET', 'POST'])
+def edit(id):
+    project = Projects.query.get_or_404(id)
+    if request.form:
+        project.title = request.form['title']
+        project.date = request.form['date']
+        project.description = request.form['desc']
+        project.skills = request.form['skills']
+        project.url = request.form['github']
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('edit.html', project=project)
 
 @app.route('/projects/<id>/delete')
-def delete():
-    pass
+def delete(id):
+        project = Projects.query.get_or_404(id)
+        db.session.delete(project)
+        db.session.commit()
+        return redirect(url_for('index'))
+
     
-
-
 
 
 if __name__ == '__main__':
