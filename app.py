@@ -1,4 +1,3 @@
-from crypt import methods
 from datetime import datetime
 from time import strptime
 from flask import (render_template, session,
@@ -6,7 +5,9 @@ from flask import (render_template, session,
 from models import db, Projects, app
 import os
 
+
 projects = Projects.query.all()
+
 
 @app.route('/')
 def index():

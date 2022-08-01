@@ -18,4 +18,5 @@ class Projects(db.Model):
     url = db.Column('url', db.String())
     
     def __repr__(self):
-        print(self.id, self.title, self.date, self.description, self.skills, self.url)
+        print(self.id, self.title, self.date,
+             self.description, self.skills, self.url)
