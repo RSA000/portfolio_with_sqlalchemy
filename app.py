@@ -1,6 +1,8 @@
 from crypt import methods
+from datetime import datetime
+from time import strptime
 from flask import (render_template, session,
-                 url_for, request, redirect)
+                 url_for, request, redirect, send_file)
 from models import db, Projects, app
 import os
 
@@ -33,7 +35,10 @@ def add_project():
 @app.route('/projects/<id>')
 def projects_id(id):
     current_project = Projects.query.get_or_404(id)
-    return render_template('detail.html', project=current_project, projects=projects)
+    skills = current_project.skills.split(',')
+    date = datetime.strptime(current_project.date, "%Y-%m")
+    return render_template('detail.html', project=current_project,
+                             projects=projects, skills=skills, date=date)
 
 
 @app.route('/projects/<id>/edit', methods=['GET', 'POST'])
@@ -49,6 +54,7 @@ def edit(id):
         return redirect(url_for('index'))
     return render_template('edit.html', projects=projects, project=project)
 
+
 @app.route('/projects/<id>/delete')
 def delete(id):
         project = Projects.query.get_or_404(id)
@@ -56,7 +62,16 @@ def delete(id):
         db.session.commit()
         return redirect(url_for('index'))
 
-    
+
+@app.route('/download')
+def download_file():
+    p = "static/downloads/sullivan_andison_resume.pdf"
+    return send_file(p,as_attachment=True)
+
+  
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html', msg=error), 404
 
 
 if __name__ == '__main__':
