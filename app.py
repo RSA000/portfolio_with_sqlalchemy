@@ -19,6 +19,15 @@ def about():
     return render_template('about.html', projects=projects)
 
 
+@app.route('/projects/<id>')
+def projects_id(id):
+    current_project = Projects.query.get_or_404(id)
+    skills = current_project.skills.split(',')
+    date = datetime.strptime(current_project.date, "%Y-%m")
+    return render_template('detail.html', project=current_project,
+                             projects=projects, skills=skills, date=date)
+
+
 @app.route('/projects/add', methods=['GET', 'POST'])
 def add_project():
     if request.form:
@@ -31,15 +40,6 @@ def add_project():
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('projectform.html', projects=projects)
-
-
-@app.route('/projects/<id>')
-def projects_id(id):
-    current_project = Projects.query.get_or_404(id)
-    skills = current_project.skills.split(',')
-    date = datetime.strptime(current_project.date, "%Y-%m")
-    return render_template('detail.html', project=current_project,
-                             projects=projects, skills=skills, date=date)
 
 
 @app.route('/projects/<id>/edit', methods=['GET', 'POST'])
