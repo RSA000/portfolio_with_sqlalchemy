@@ -6,21 +6,21 @@ from models import db, Projects, app
 import os
 
 
-projects = Projects.query.all()
-
-
 @app.route('/')
 def index():
+    projects = Projects.query.all()
     return render_template("index.html", projects=projects)
 
 
 @app.route('/about')
 def about():
+    projects = Projects.query.all()
     return render_template('about.html', projects=projects)
 
 
 @app.route('/projects/<id>')
 def projects_id(id):
+    projects = Projects.query.all()
     current_project = Projects.query.get_or_404(id)
     skills = current_project.skills.split(',')
     date = datetime.strptime(current_project.date, "%Y-%m")
@@ -30,6 +30,7 @@ def projects_id(id):
 
 @app.route('/projects/add', methods=['GET', 'POST'])
 def add_project():
+    projects = Projects.query.all()
     if request.form:
         print(request.form)
         new_project = Projects(
@@ -44,6 +45,7 @@ def add_project():
 
 @app.route('/projects/<id>/edit', methods=['GET', 'POST'])
 def edit(id):
+    projects = Projects.query.all()
     project = Projects.query.get_or_404(id)
     if request.form:
         project.title = request.form['title']
@@ -72,7 +74,8 @@ def download_file():
   
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html', msg=error), 404
+    projects = Projects.query.all()
+    return render_template('404.html', msg=error, projects=projects), 404
 
 
 if __name__ == '__main__':
