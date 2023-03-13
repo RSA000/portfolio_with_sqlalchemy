@@ -1,4 +1,6 @@
-## Portfolio with SQLAlchemy 
+## Portfolio with SQLAlchemy
+
+A project from TeamTreeHouses Python Development Course.
 
 #### Project Overview
 To create a functional portfolio website using Flask with the ability to view/upload/delete projects. 
